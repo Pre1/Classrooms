@@ -30,8 +30,12 @@ class Student(models.Model):
 	date_of_birth = models.DateField()
 	gender = models.CharField(max_length = 3, choices=GENDER_CHOICES)
 	exam_grade = models.DecimalField(decimal_places=3, max_digits=7)
-	classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
+	classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name='students')
 
 
 	def __str__(self):
 		return self.name;
+
+	# you can use ordering default by 
+	# class Meta:
+	# 	ordering = ('name', 'exam_grade',)
