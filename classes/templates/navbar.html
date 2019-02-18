@@ -6,14 +6,26 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           
+          {% if request.user.is_authenticated %}
           <li class="nav-item active">
             <a class="nav-link btn btn-outline-dark mx-1" style="color: white;" 
             href="{% url 'classroom-create' %}">
               New Classroom
             </a>
+
+            <li class="nav-item">
+              <a class="nav-link text-white btn btn-outline-info mx-1" 
+              href="{% url 'signout' %}">
+                Sign out
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <div class="nav-link text-white border-left mx-1">User: {{request.user}}</div>
+            </li>
           </li>
 
-          {% if not request.user.is_authenticated %}
+          {% else %}
             <li class="nav-item">
               
               <a class="nav-link text-white btn btn-outline-dark mx-1" 
@@ -27,18 +39,6 @@
                 href="{% url 'signin' %}">
                 Signin
               </a>
-            </li>
-
-          {% else %}
-            <li class="nav-item">
-              <a class="nav-link text-white btn btn-outline-info mx-1" 
-              href="{% url 'signout' %}">
-                Sign out
-              </a>
-            </li>
-            
-            <li class="nav-item">
-              <div class="nav-link text-white border-left mx-1">User: {{request.user}}</div>
             </li>
           {% endif %}
 
