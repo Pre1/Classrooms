@@ -8,9 +8,61 @@
   <div class="card-body">
     <h5 class="card-title" style="color: 000034;">{{classroom.name}} {{classroom.subject}}</h5>
     <p class="card-text" style="color: 000034;">{{classroom.year}}</p>
-    <a href="{% url 'classroom-update' classroom.id %}" class="btn" style="background-color: #000034; color: white;">Update</a>
-    <a href="{% url 'classroom-delete' classroom.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
+    
+	    {% if request.user.is_staff or classroom.teacher == request.user %}
+
+			<a href="{% url 'student-create' classroom.id %}" class="btn mx-1" style="background-color: #000034; color: white;">Add Student</a>    	
+	    
+
+		    <a href="{% url 'classroom-update' classroom.id %}" class="btn" style="background-color: #000034; color: white;">Update</a>
+
+
+		    <a href="{% url 'classroom-delete' classroom.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
+	    {% endif %}
+
   </div>
+  
 </div>
+
+
+<table class="table my-1">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">DoB</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Grade</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+    
+    	{% for student in students %}
+      <tr>
+    		<th class="h5 align-bottom" scope="row">{{ forloop.counter }} </th>		
+    		<td class="h5 align-bottom">{{student.name}}</td>
+    		<td class="h5 align-bottom">{{student.date_of_birth}}</td>
+    		<td class="h5 align-bottom">{{student.gender}}</td>
+    		<td class="h5 align-bottom">{{student.exam_grade}}</td>
+
+  		{% if request.user.is_staff or classroom.teacher == request.user %}
+      		<td>
+
+	      	{# TODO(create update / delate func views for student) #}
+	      	<a href="{% url 'student-update' classroom.id student.id %}" class="btn mx-1" style="background-color: #000034; color: white;">Update</a>
+
+
+		    <a href="{% url 'student-delete' classroom.id student.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
+
+      		</td>
+      {% endif %}
+      </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
 
 {% endblock content %}

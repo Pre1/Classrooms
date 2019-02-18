@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #000034;">
+      <a class="navbar-brand" href="{% url 'classroom-list' %}" style="color: white;">Classrooms</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item active">
+            <a class="nav-link btn btn-outline-dark mx-1" style="color: white;" 
+            href="{% url 'classroom-create' %}">
+              New Classroom
+            </a>
+          </li>
+
+          {% if not request.user.is_authenticated %}
+            <li class="nav-item">
+              
+              <a class="nav-link text-white btn btn-outline-dark mx-1" 
+              href="{% url 'signup' %}">
+                Sign Up
+              </a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link text-white btn btn-outline-info mx-1"
+                href="{% url 'signin' %}">
+                Signin
+              </a>
+            </li>
+
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link text-white btn btn-outline-info mx-1" 
+              href="{% url 'signout' %}">
+                Sign out
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <div class="nav-link text-white border-left mx-1">User: {{request.user}}</div>
+            </li>
+          {% endif %}
+
+        </ul>
+      </div>
+</nav>
+
+
+        

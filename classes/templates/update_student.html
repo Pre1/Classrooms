@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-	<form action="{% url 'classroom-update' classroom.id %}" method="POST">
+	<form action="{% url 'student-update' classroom.id student.id %}">
 		{% csrf_token %}
 		{{form|crispy}}
 		<input type="submit" value="Update" class="btn btn-primary">
