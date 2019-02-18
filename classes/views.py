@@ -159,13 +159,23 @@ def student_update(request, classroom_id, student_id):
 	student = Student.objects.get(id=student_id)
 	classroom = Classroom.objects.get(id=classroom_id)
 
-	form = StudentForm(instance=student)
+	# form = StudentForm(instance=student)
+
+	# if request.method == "POST":
+	# 	form = StudentForm(request.POST, instance=student)
+	# 	if form.is_valid():
+	# 		form.save()
+	# 		messages.success(request, "Successfully Edited!")
+	# 		return redirect(classroom.get_absolute_url())
+
+	if request.user == classroom.teacher:
+		form = StudentForm(instance=student)
 
 	if request.method == "POST":
 		form = StudentForm(request.POST, instance=student)
 		if form.is_valid():
 			form.save()
-			messages.success(request, "Successfully Edited!")
+			messages.success(request, "Student Successfully Edited!")
 			return redirect(classroom)
 
 	context = {
