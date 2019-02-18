@@ -3,9 +3,10 @@ from django.contrib import messages
 
 from django.contrib.auth.models import User
 from .models import Classroom, Student
-from .forms import ClassroomForm, StudentForm
+from .forms import ClassroomForm, StudentForm, SigninForm, SignupForm
 
 from django.http import HttpResponse
+from django.contrib.auth import login, logout, authenticate
 
 def classroom_list(request):
 	classrooms = Classroom.objects.all()
